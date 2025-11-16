@@ -53,6 +53,7 @@ Line.prototype = {
     // @ts-ignore
     this.nodes = [];
     for (var t, n = 0; n < E.size; n++) {
+      // @ts-ignore
       t = new Node();
       // @ts-ignore
       t.x = pos.x;
@@ -130,6 +131,7 @@ function onMousemove(e) {
   function o() {
     lines = [];
     for (let e = 0; e < E.trails; e++)
+      // @ts-ignore
       lines.push(new Line({ spring: 0.45 + (e / E.trails) * 0.025 }));
   }
 
@@ -146,8 +148,12 @@ function onMousemove(e) {
   // @ts-ignore
   function l(e) {
     // @ts-ignore
-    1 == e.touches.length &&
-      ((pos.x = e.touches[0].pageX), (pos.y = e.touches[0].pageY));
+    if (1 == e.touches.length) {
+      // @ts-ignore
+      pos.x = e.touches[0].pageX;
+      // @ts-ignore
+      pos.y = e.touches[0].pageY;
+    }
   }
 
   document.removeEventListener("mousemove", onMousemove),
@@ -186,17 +192,20 @@ function render() {
 
 function resizeCanvas() {
   // @ts-ignore
+  if (!ctx || !ctx.canvas) return;
+  // @ts-ignore
   ctx.canvas.width = window.innerWidth - 20;
   // @ts-ignore
   ctx.canvas.height = window.innerHeight;
 }
 
 // @ts-ignore
-var ctx,
+var ctx: any,
   // @ts-ignore
-  f,
+  f: any,
   e = 0,
-  pos = {},
+  // @ts-ignore
+  pos: any = {},
   // @ts-ignore
   lines = [],
   E = {
@@ -208,10 +217,15 @@ var ctx,
     tension: 0.99,
   };
 
+// @ts-ignore
 function Node() {
+  // @ts-ignore
   this.x = 0;
+  // @ts-ignore
   this.y = 0;
+  // @ts-ignore
   this.vy = 0;
+  // @ts-ignore
   this.vx = 0;
 }
 
@@ -220,6 +234,7 @@ const renderCanvas = function () {
   ctx = document.getElementById("canvas").getContext("2d");
   ctx.running = true;
   ctx.frame = 1;
+  // @ts-ignore
   f = new n({
     phase: Math.random() * 2 * Math.PI,
     amplitude: 85,
@@ -236,6 +251,7 @@ const renderCanvas = function () {
   // Initialize lines array
   lines = [];
   for (let e = 0; e < E.trails; e++)
+    // @ts-ignore
     lines.push(new Line({ spring: 0.45 + (e / E.trails) * 0.025 }));
 
   document.addEventListener("mousemove", onMousemove);

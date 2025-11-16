@@ -140,8 +140,12 @@ function onMousemove(e) {
   // @ts-ignore
   function l(e) {
     // @ts-ignore
-    1 == e.touches.length &&
-      ((pos.x = e.touches[0].pageX), (pos.y = e.touches[0].pageY));
+    if (1 == e.touches.length) {
+      // @ts-ignore
+      pos.x = e.touches[0].pageX;
+      // @ts-ignore
+      pos.y = e.touches[0].pageY;
+    }
   }
 
   document.removeEventListener("mousemove", onMousemove),
@@ -179,6 +183,7 @@ function render() {
 }
 
 function resizeCanvas() {
+  // @ts-ignore
   if (!ctx || !ctx.canvas) return;
   // @ts-ignore
   const canvasId = ctx.canvas.id;
@@ -199,11 +204,12 @@ function resizeCanvas() {
 }
 
 // @ts-ignore
-var ctx,
+var ctx: any,
   // @ts-ignore
-  f,
+  f: any,
   e = 0,
-  pos = {},
+  // @ts-ignore
+  pos: any = {},
   // @ts-ignore
   lines = [],
   E = {
